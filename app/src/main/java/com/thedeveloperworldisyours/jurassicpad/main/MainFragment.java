@@ -1,15 +1,14 @@
-package com.thedeveloperworldisyours.jurassicpad;
+package com.thedeveloperworldisyours.jurassicpad.main;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.vertical.DividerVerticalItemDecoration;
 import com.thedeveloperworldisyours.jurassicpad.vertical.VerticalData;
 import com.thedeveloperworldisyours.jurassicpad.vertical.VerticalRecyclerViewAdapter;

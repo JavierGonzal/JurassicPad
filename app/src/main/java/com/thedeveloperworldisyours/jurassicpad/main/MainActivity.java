@@ -1,10 +1,11 @@
-package com.thedeveloperworldisyours.jurassicpad;
+package com.thedeveloperworldisyours.jurassicpad.main;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.utils.Utils;
 
 import butterknife.BindView;
