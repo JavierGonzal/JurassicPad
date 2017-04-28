@@ -35,4 +35,5 @@ ext {
     daggerVersion = '2.10'
     espressoVersion = '2.2.2'
     testSupportVersion = '0.5'
+    okhttp = '3.3.1'
 }

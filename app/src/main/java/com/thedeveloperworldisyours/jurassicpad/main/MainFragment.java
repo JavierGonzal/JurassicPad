@@ -9,25 +9,31 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.thedeveloperworldisyours.jurassicpad.R;
+import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 import com.thedeveloperworldisyours.jurassicpad.vertical.DividerVerticalItemDecoration;
 import com.thedeveloperworldisyours.jurassicpad.vertical.VerticalData;
 import com.thedeveloperworldisyours.jurassicpad.vertical.VerticalRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainFragment extends Fragment implements VerticalRecyclerViewAdapter.MyClickListener {
+public class MainFragment extends Fragment implements VerticalRecyclerViewAdapter.MyClickListener, MainContract.View {
 
     @BindView(R.id.main_fragment_recycler_view)
     RecyclerView mRecyclerView;
     private VerticalRecyclerViewAdapter mAdapter;
 
+    private MainContract.Presenter mPresenter;
+
     public MainFragment() {
         // Required empty public constructor
     }
+
+
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -57,6 +63,7 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
         mRecyclerView.addItemDecoration(itemDecoration);
         mAdapter.setOnItemClickListener(this);
 
+
         return view;
     }
 
@@ -73,6 +80,38 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
 
     @Override
     public void onItemClick(final int position, View v) {
+
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unSubscribe();
+    }
+
+    @Override
+    public void showUser(List<SearchItem>) {
+        mAdapter = new VerticalRecyclerViewAdapter(
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
 
     }
 
