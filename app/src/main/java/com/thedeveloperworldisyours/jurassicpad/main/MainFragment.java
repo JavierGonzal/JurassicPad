@@ -12,7 +12,6 @@ import android.widget.EditText;
 import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 import com.thedeveloperworldisyours.jurassicpad.vertical.DividerVerticalItemDecoration;
-import com.thedeveloperworldisyours.jurassicpad.vertical.VerticalRecyclerViewAdapter;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainFragment extends Fragment implements VerticalRecyclerViewAdapter.MyClickListener, MainContract.View {
+public class MainFragment extends Fragment implements MainRecyclerViewAdapter.MyClickListener, MainContract.View {
 
     @BindView(R.id.main_fragment_recycler_view)
     RecyclerView mRecyclerView;
@@ -29,7 +28,7 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
     @BindView(R.id.main_fragment_edit_text)
     EditText mEditText;
 
-    private VerticalRecyclerViewAdapter mAdapter;
+    private MainRecyclerViewAdapter mAdapter;
 
     private MainContract.Presenter mPresenter;
 
@@ -61,7 +60,7 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        mAdapter = new VerticalRecyclerViewAdapter((Collections.emptyList()));
+        mAdapter = new MainRecyclerViewAdapter((Collections.emptyList()));
 
         mRecyclerView.setAdapter(mAdapter);
 

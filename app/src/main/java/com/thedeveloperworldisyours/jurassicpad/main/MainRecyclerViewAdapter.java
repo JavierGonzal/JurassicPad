@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.jurassicpad.vertical;
+package com.thedeveloperworldisyours.jurassicpad.main;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,30 +9,31 @@ import android.widget.TextView;
 import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by javierg on 27/04/2017.
  */
 
-public class VerticalRecyclerViewAdapter extends RecyclerView
-        .Adapter<VerticalRecyclerViewAdapter
+public class MainRecyclerViewAdapter extends RecyclerView
+        .Adapter<MainRecyclerViewAdapter
         .DataObjectHolder> {
 
     private List<SearchItem> mDataset;
-    private static VerticalRecyclerViewAdapter.MyClickListener sClickListener;
+    private static MainRecyclerViewAdapter.MyClickListener sClickListener;
 
     static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
-        TextView mLabel;
-        TextView mDateTime;
+        @BindView(R.id.vertical_list_item_title) TextView mLabel;
+        @BindView(R.id.vertical_list_item_subtitle) TextView mDateTime;
 
         DataObjectHolder(View itemView) {
             super(itemView);
-            mLabel = (TextView) itemView.findViewById(R.id.vertical_list_item_title);
-            mDateTime = (TextView) itemView.findViewById(R.id.vertical_list_item_subtitle);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -42,17 +43,17 @@ public class VerticalRecyclerViewAdapter extends RecyclerView
         }
     }
 
-    public void setOnItemClickListener(VerticalRecyclerViewAdapter.MyClickListener myClickListener) {
+    public void setOnItemClickListener(MainRecyclerViewAdapter.MyClickListener myClickListener) {
         this.sClickListener = myClickListener;
     }
 
-    public VerticalRecyclerViewAdapter(List<SearchItem> myDataset) {
+    public MainRecyclerViewAdapter(List<SearchItem> myDataset) {
         mDataset = myDataset;
     }
 
     @Override
-    public VerticalRecyclerViewAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent,
-                                                                           int viewType) {
+    public MainRecyclerViewAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent,
+                                                                       int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.vertical_list_item, parent, false);
 
@@ -61,19 +62,9 @@ public class VerticalRecyclerViewAdapter extends RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(VerticalRecyclerViewAdapter.DataObjectHolder holder, int position) {
+    public void onBindViewHolder(MainRecyclerViewAdapter.DataObjectHolder holder, int position) {
         holder.mLabel.setText(mDataset.get(position).getLogin());
         holder.mDateTime.setText(mDataset.get(position).getAvatarUrl());
-    }
-
-    void addItem(SearchItem dataObj, int index) {
-        mDataset.add(dataObj);
-        notifyItemInserted(index);
-    }
-
-    void deleteItem(int index) {
-        mDataset.remove(index);
-        notifyItemRemoved(index);
     }
 
     @Override
