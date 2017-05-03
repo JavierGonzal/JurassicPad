@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.jurassicpad.utils;
+package com.thedeveloperworldisyours.jurassicpad.data;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;

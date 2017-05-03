@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
-import com.thedeveloperworldisyours.jurassicpad.vertical.DividerVerticalItemDecoration;
+import com.thedeveloperworldisyours.jurassicpad.utils.DividerVerticalItemDecoration;
 
 import java.util.Collections;
 import java.util.List;

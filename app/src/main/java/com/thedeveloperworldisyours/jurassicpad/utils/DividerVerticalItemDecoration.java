@@ -1,4 +1,4 @@
-package com.thedeveloperworldisyours.jurassicpad.vertical;
+package com.thedeveloperworldisyours.jurassicpad.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

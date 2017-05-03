@@ -11,7 +11,7 @@ import com.thedeveloperworldisyours.jurassicpad.data.Repository;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchResult;
 import com.thedeveloperworldisyours.jurassicpad.schedulers.BaseSchedulerProvider;
-import com.thedeveloperworldisyours.jurassicpad.utils.RxUserBus;
+import com.thedeveloperworldisyours.jurassicpad.data.RxUserBus;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
