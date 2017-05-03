@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 
@@ -28,8 +30,12 @@ public class MainRecyclerViewAdapter extends RecyclerView
     static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
-        @BindView(R.id.vertical_list_item_title) TextView mLabel;
-        @BindView(R.id.vertical_list_item_subtitle) TextView mDateTime;
+
+        @BindView(R.id.vertical_list_item_title)
+        TextView mLabel;
+
+        @BindView(R.id.vertical_list_item_image_view)
+        ImageView mDateTime;
 
         DataObjectHolder(View itemView) {
             super(itemView);
@@ -55,7 +61,7 @@ public class MainRecyclerViewAdapter extends RecyclerView
     public MainRecyclerViewAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent,
                                                                        int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.vertical_list_item, parent, false);
+                .inflate(R.layout.main_list_item, parent, false);
 
         DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
         return dataObjectHolder;
@@ -64,7 +70,7 @@ public class MainRecyclerViewAdapter extends RecyclerView
     @Override
     public void onBindViewHolder(MainRecyclerViewAdapter.DataObjectHolder holder, int position) {
         holder.mLabel.setText(mDataset.get(position).getLogin());
-        holder.mDateTime.setText(mDataset.get(position).getAvatarUrl());
+        Picasso.with(holder.mDateTime.getContext()).load(mDataset.get(position).getAvatarUrl()).into(holder.mDateTime);
     }
 
     @Override
