@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.subscriptions.CompositeSubscription;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -73,18 +72,14 @@ public class MainPresenter implements MainContract.Presenter{
                 .filter((CharSequence charSequence) ->
                         charSequence.length() > 0
                 )
-                .switchMap(new Func1<CharSequence, Observable<SearchResult>>() {
-                    @Override public Observable<SearchResult> call(CharSequence charSequence) {
-                        return interactor.searchUsers(charSequence.toString());
-                    }
-                })
-                .flatMap(new Func1<SearchResult, Observable<List<SearchItem>>>() {
-                    @Override public Observable<List<SearchItem>> call(SearchResult searchResult) {
-                        return Observable.from(searchResult.getItems())
+                .switchMap((CharSequence charSequence) ->
+                        interactor.searchUsers(charSequence.toString())
+                )
+                .flatMap((SearchResult searchResult) ->
+                        Observable.from(searchResult.getItems())
                                 .limit(20)
-                                .toList();
-                    }
-                })
+                                .toList()
+                )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((List<SearchItem> searchItems) ->
                         mView.showUser(searchItems)
