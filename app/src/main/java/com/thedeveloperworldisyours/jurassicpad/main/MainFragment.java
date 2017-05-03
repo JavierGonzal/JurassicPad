@@ -11,10 +11,9 @@ import android.view.ViewGroup;
 import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 import com.thedeveloperworldisyours.jurassicpad.vertical.DividerVerticalItemDecoration;
-import com.thedeveloperworldisyours.jurassicpad.vertical.VerticalData;
 import com.thedeveloperworldisyours.jurassicpad.vertical.VerticalRecyclerViewAdapter;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,26 +55,17 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new VerticalRecyclerViewAdapter(getDataSet());
+
+        mAdapter = new VerticalRecyclerViewAdapter((Collections.emptyList()));
+
         mRecyclerView.setAdapter(mAdapter);
+
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerVerticalItemDecoration(getActivity());
         mRecyclerView.addItemDecoration(itemDecoration);
         mAdapter.setOnItemClickListener(this);
 
-
         return view;
-    }
-
-
-    private ArrayList<VerticalData> getDataSet() {
-        ArrayList results = new ArrayList<>();
-        for (int index = 0; index < 20; index++) {
-            VerticalData obj = new VerticalData("Some Primary Text " + index,
-                    "Secondary " + index);
-            results.add(index, obj);
-        }
-        return results;
     }
 
     @Override
@@ -101,8 +91,10 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
     }
 
     @Override
-    public void showUser(List<SearchItem>) {
-        mAdapter = new VerticalRecyclerViewAdapter(
+    public void showUser(List<SearchItem> list) {
+
+        mAdapter.refreshResults(list);
+
     }
 
     @Override
@@ -113,6 +105,10 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
     @Override
     public void setLoadingIndicator(boolean active) {
 
+    }
+
+    public void refresh(String string){
+        mPresenter.listenerSearch(string);
     }
 
 }

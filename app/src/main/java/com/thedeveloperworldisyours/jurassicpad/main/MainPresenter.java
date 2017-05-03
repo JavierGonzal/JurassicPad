@@ -3,7 +3,6 @@ package com.thedeveloperworldisyours.jurassicpad.main;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.LruCache;
-import android.widget.Toast;
 
 import com.thedeveloperworldisyours.jurassicpad.data.GitHubInteractor;
 import com.thedeveloperworldisyours.jurassicpad.data.Repository;
@@ -45,6 +44,17 @@ public class MainPresenter implements MainContract.Presenter{
 
     @Override
     public void subscribe() {
+
+
+    }
+
+    @Override
+    public void unSubscribe() {
+        mSubscriptions.unsubscribe();
+    }
+
+    @Override
+    public void listenerSearch(String string) {
         LruCache<String, SearchResult> cache = new LruCache<>(5 * 1024 * 1024); // 5MiB
 
         final GitHubInteractor interactor = new GitHubInteractor(mRepository.getRetrofit(), cache);
@@ -55,7 +65,9 @@ public class MainPresenter implements MainContract.Presenter{
             }
         }));
 
-        mSubscriptions.add(RxTextView.textChanges(searchBar)
+        mSubscriptions.add(string
+
+
                 .observeOn(Schedulers.io())
                 .debounce(1, TimeUnit.SECONDS)
                 .filter(new Func1<CharSequence, Boolean>() {
@@ -75,6 +87,7 @@ public class MainPresenter implements MainContract.Presenter{
                                 .toList();
                     }
                 })
+
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<SearchItem>>() {
                     @Override public void call(List<SearchItem> searchItems) {
@@ -86,10 +99,4 @@ public class MainPresenter implements MainContract.Presenter{
                     }
                 }));
     }
-
-    @Override
-    public void unSubscribe() {
-        mSubscriptions.unsubscribe();
-    }
-
 }

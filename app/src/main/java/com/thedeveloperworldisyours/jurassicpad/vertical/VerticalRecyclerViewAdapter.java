@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.thedeveloperworldisyours.jurassicpad.R;
+import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by javierg on 27/04/2017.
@@ -18,7 +20,7 @@ public class VerticalRecyclerViewAdapter extends RecyclerView
         .Adapter<VerticalRecyclerViewAdapter
         .DataObjectHolder> {
 
-    private ArrayList<VerticalData> mDataset;
+    private List<SearchItem> mDataset;
     private static VerticalRecyclerViewAdapter.MyClickListener sClickListener;
 
     static class DataObjectHolder extends RecyclerView.ViewHolder
@@ -44,7 +46,7 @@ public class VerticalRecyclerViewAdapter extends RecyclerView
         this.sClickListener = myClickListener;
     }
 
-    public VerticalRecyclerViewAdapter(ArrayList<VerticalData> myDataset) {
+    public VerticalRecyclerViewAdapter(List<SearchItem> myDataset) {
         mDataset = myDataset;
     }
 
@@ -60,11 +62,11 @@ public class VerticalRecyclerViewAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(VerticalRecyclerViewAdapter.DataObjectHolder holder, int position) {
-        holder.mLabel.setText(mDataset.get(position).getmTitle());
-        holder.mDateTime.setText(mDataset.get(position).getmSubTitle());
+        holder.mLabel.setText(mDataset.get(position).getLogin());
+        holder.mDateTime.setText(mDataset.get(position).getAvatarUrl());
     }
 
-    void addItem(VerticalData dataObj, int index) {
+    void addItem(SearchItem dataObj, int index) {
         mDataset.add(dataObj);
         notifyItemInserted(index);
     }
@@ -81,6 +83,11 @@ public class VerticalRecyclerViewAdapter extends RecyclerView
 
     public interface MyClickListener {
         void onItemClick(int position, View v);
+    }
+
+    public void refreshResults(List<SearchItem> items) {
+        mDataset = items;
+        notifyDataSetChanged();
     }
 
 }

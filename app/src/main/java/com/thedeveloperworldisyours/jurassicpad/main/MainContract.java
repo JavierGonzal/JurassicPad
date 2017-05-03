@@ -14,10 +14,12 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
 
+        void listenerSearch(String string);
+
     }
 
     interface View extends BaseView<Presenter> {
-        void showUser(List<SearchItem>);
+        void showUser(List<SearchItem> list);
 
         void showError();
 
