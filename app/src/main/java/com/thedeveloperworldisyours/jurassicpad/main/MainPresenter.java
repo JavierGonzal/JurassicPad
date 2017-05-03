@@ -18,9 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -65,20 +63,16 @@ public class MainPresenter implements MainContract.Presenter{
 
         final GitHubInteractor interactor = new GitHubInteractor(mRepository.getRetrofit(), cache);
 
-        mSubscriptions.add(RxUserBus.sub().subscribe(new Action1<String>() {
-            @Override public void call(String s) {
+        mSubscriptions.add(RxUserBus.sub().subscribe((String s) ->{
 //                Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
-            }
         }));
 
         mSubscriptions.add(RxTextView.textChanges(editText)
                 .observeOn(mSchedulerProvider.io())
                 .debounce(1, TimeUnit.SECONDS)
-                .filter(new Func1<CharSequence, Boolean>() {
-                    @Override public Boolean call(CharSequence charSequence) {
-                        return charSequence.length() > 0;
-                    }
-                })
+                .filter((CharSequence charSequence) ->
+                        charSequence.length() > 0
+                )
                 .switchMap(new Func1<CharSequence, Observable<SearchResult>>() {
                     @Override public Observable<SearchResult> call(CharSequence charSequence) {
                         return interactor.searchUsers(charSequence.toString());
@@ -92,15 +86,12 @@ public class MainPresenter implements MainContract.Presenter{
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<SearchItem>>() {
-                    @Override public void call(List<SearchItem> searchItems) {
-                        mView.showUser(searchItems);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override public void call(Throwable throwable) {
-                        Log.e(MainActivity.class.getName(), throwable.getMessage());
-                    }
-                }));
+                .subscribe((List<SearchItem> searchItems) ->
+                        mView.showUser(searchItems)
+                , (Throwable throwable) ->
+                        Log.e(MainActivity.class.getName(), throwable.getMessage())
+
+                ));
 
     }
 }
