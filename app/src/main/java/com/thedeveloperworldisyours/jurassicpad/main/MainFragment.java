@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.thedeveloperworldisyours.jurassicpad.R;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
@@ -24,6 +25,10 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
 
     @BindView(R.id.main_fragment_recycler_view)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.main_fragment_edit_text)
+    EditText mEditText;
+
     private VerticalRecyclerViewAdapter mAdapter;
 
     private MainContract.Presenter mPresenter;
@@ -82,6 +87,7 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
     public void onResume() {
         super.onResume();
         mPresenter.subscribe();
+        mPresenter.listenerSearch(mEditText);
     }
 
     @Override
@@ -105,10 +111,6 @@ public class MainFragment extends Fragment implements VerticalRecyclerViewAdapte
     @Override
     public void setLoadingIndicator(boolean active) {
 
-    }
-
-    public void refresh(String string){
-        mPresenter.listenerSearch(string);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.thedeveloperworldisyours.jurassicpad.main;
 
+import android.widget.EditText;
+
 import com.thedeveloperworldisyours.jurassicpad.BasePresenter;
 import com.thedeveloperworldisyours.jurassicpad.BaseView;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
@@ -14,7 +16,7 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
 
-        void listenerSearch(String string);
+        void listenerSearch(EditText mEditText);
 
     }
 

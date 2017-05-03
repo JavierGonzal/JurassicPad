@@ -3,11 +3,14 @@ package com.thedeveloperworldisyours.jurassicpad.main;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.LruCache;
+import android.widget.EditText;
 
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.thedeveloperworldisyours.jurassicpad.data.GitHubInteractor;
 import com.thedeveloperworldisyours.jurassicpad.data.Repository;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchItem;
 import com.thedeveloperworldisyours.jurassicpad.data.SearchResult;
+import com.thedeveloperworldisyours.jurassicpad.schedulers.BaseSchedulerProvider;
 import com.thedeveloperworldisyours.jurassicpad.utils.RxUserBus;
 
 import java.util.List;
@@ -34,10 +37,13 @@ public class MainPresenter implements MainContract.Presenter{
 
     private MainContract.View mView;
 
-    public MainPresenter(@NonNull Repository repository, @NonNull MainContract.View view) {
+    private BaseSchedulerProvider mSchedulerProvider;
+
+
+    public MainPresenter(@NonNull Repository repository, @NonNull MainContract.View view, @NonNull BaseSchedulerProvider provider ) {
         mRepository = checkNotNull(repository, "repository cannot be null");
         mView = checkNotNull(view, "view cannot be null!");
-
+        mSchedulerProvider = checkNotNull(provider, "schedulerProvider cannot be null");
             mSubscriptions = new CompositeSubscription();
             mView.setPresenter(this);
     }
@@ -54,7 +60,7 @@ public class MainPresenter implements MainContract.Presenter{
     }
 
     @Override
-    public void listenerSearch(String string) {
+    public void listenerSearch(EditText editText) {
         LruCache<String, SearchResult> cache = new LruCache<>(5 * 1024 * 1024); // 5MiB
 
         final GitHubInteractor interactor = new GitHubInteractor(mRepository.getRetrofit(), cache);
@@ -65,10 +71,8 @@ public class MainPresenter implements MainContract.Presenter{
             }
         }));
 
-        mSubscriptions.add(string
-
-
-                .observeOn(Schedulers.io())
+        mSubscriptions.add(RxTextView.textChanges(editText)
+                .observeOn(mSchedulerProvider.io())
                 .debounce(1, TimeUnit.SECONDS)
                 .filter(new Func1<CharSequence, Boolean>() {
                     @Override public Boolean call(CharSequence charSequence) {
@@ -87,16 +91,16 @@ public class MainPresenter implements MainContract.Presenter{
                                 .toList();
                     }
                 })
-
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<SearchItem>>() {
                     @Override public void call(List<SearchItem> searchItems) {
-                        mView.showUser();
+                        mView.showUser(searchItems);
                     }
                 }, new Action1<Throwable>() {
                     @Override public void call(Throwable throwable) {
                         Log.e(MainActivity.class.getName(), throwable.getMessage());
                     }
                 }));
+
     }
 }
