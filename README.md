@@ -22,7 +22,8 @@ Libraries and tools included:
 8. **[Guava](https://github.com/google/guava)**
 9. **[Okhttp](https://github.com/square/okhttp)**
 10. **[JUnit](http://junit.org/junit5/)**
-10. **[Mockito](http://site.mockito.org/)**
+11. **[Mockito](http://site.mockito.org/)**
+10. **[RxBinding](https://github.com/JakeWharton/RxBinding)**
 
 
 Also visit my blog: **[The developer world is yours](http://thedeveloperworldisyours.com/)**
