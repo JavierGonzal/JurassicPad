@@ -1,5 +1,5 @@
 # JurassicPad
-Jurassic Pad
+Jurassic Pad is app about how to test with JUnit API restful with Retrofit RxJava Dagger 2 and much more.
 <p align="center">
  <img src="https://github.com/CabezasGonzalezJavier/JurassicPad/blob/master/JurassicPad.png" width="300px" />
 </p>
@@ -21,6 +21,8 @@ Libraries and tools included:
 7. **[Retrolambda](https://github.com/evant/gradle-retrolambda)**
 8. **[Guava](https://github.com/google/guava)**
 9. **[Okhttp](https://github.com/square/okhttp)**
+10. **[JUnit](http://junit.org/junit5/)**
+10. **[Mockito](http://site.mockito.org/)**
 
 
 Also visit my blog: **[The developer world is yours](http://thedeveloperworldisyours.com/)**
@@ -28,6 +30,11 @@ Also visit my blog: **[The developer world is yours](http://thedeveloperworldisy
 <a href="http://thedeveloperworldisyours.com/">
   <img alt="The developer world is yours" src="https://github.com/CabezasGonzalezJavier/AddTextViewButton/blob/master/TheDeveloperWordIsYours.png" />
 </a>
+
+# Further reading
+
+  As the above only gives a rough overview of rxjava example I'd strongly recommend checking out the following:
+**[rxjava-android-example](https://github.com/jpetitto/rxjava-android-example)**
 
 # Requirements
 
