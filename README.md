@@ -4,6 +4,25 @@ Jurassic Pad
  <img src="https://github.com/CabezasGonzalezJavier/JurassicPad/blob/master/JurassicPad.png" width="300px" />
 </p>
 
+This app inclid:
+
+**[Android Architecture Blueprints](https://github.com/googlesamples/android-architecture)**
+
+**[Java8]()**
+
+Libraries and tools included:
+
+1. Support libraries
+2. RecyclerViews
+3. **[RxJava](https://github.com/ReactiveX/RxJava)** and **[RxAndroid](https://github.com/ReactiveX/RxAndroid)**
+4. **[Retrofit 2](https://github.com/square/retrofit)**
+5. **[Dagger 2](https://google.github.io/dagger/)**
+6. **[Butterknife](https://github.com/JakeWharton/butterknife)**
+7. **[Retrolambda](https://github.com/evant/gradle-retrolambda)**
+8. **[Guava](https://github.com/google/guava)**
+9. **[Okhttp](https://github.com/square/okhttp)**
+
+
 Also visit my blog: **[The developer world is yours](http://thedeveloperworldisyours.com/)**
 
 <a href="http://thedeveloperworldisyours.com/">
